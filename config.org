@@ -1,0 +1,149 @@
+#+TITLE: Minha configuração do Emacs
+#+AUTHOR: Tukain
+#+STARTUP: overview
+
+Essa configuração tem como foco principal não ter nenhuma
+(se não pouquíssima) dependência externa. Ou seja, uma
+configuração usando o Emacs mais puro possível.
+
+
+* Bons padrões
+
+O Emacs é um ótimo programa com padrões horrorosos,
+então vamos dar um jeito nisso.
+
+#+begin_src emacs-lisp
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups"))
+      inhibit-startup-message t
+      inhibit-startup-echo-area-message t
+      tooltip-use-echo-area t
+      custom-file "~/.config/emacs/custom.el")
+(load custom-file)
+(setq-default minor-mode-alist nil
+	      fill-column 80)
+
+(require 'ido)
+(ido-mode t)
+(ido-everywhere t)
+(tooltip-mode -1)
+(delete-selection-mode 1)
+#+end_src
+
+* Org-mode
+
+#+begin_src emacs-lisp
+(require 'org-tempo)
+(setq org-support-shift-select t
+      org-edit-src-content-indentation 0)
+(setq-default org-startup-indented t
+              org-pretty-entities t
+              org-use-sub-superscripts "{}"
+              org-hide-emphasis-markers t
+              org-startup-with-inline-images t
+              org-image-actual-width '(300))
+#+end_src
+
+* Aparência
+
+Configurações relacionadas a parte mais estética do Emacs,
+apesar de ter algumas coisas que ajudam também na usabilidade.
+
+#+begin_src emacs-lisp
+(scroll-bar-mode 0)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(add-to-list 'default-frame-alist '(font . "monospace-11"))
+(global-prettify-symbols-mode)
+(global-hl-line-mode t)
+(icomplete-mode 1)
+;;(display-time-mode 1)
+;;(display-battery-mode 1)
+(setq-default whitespace-style
+    '(face trailing space-mark tab-mark))
+(set-frame-parameter nil 'alpha-background 95)
+(add-to-list 'default-frame-alist '(alpha-background . 95))
+;;(global-whitespace-mode)
+;;(global-display-fill-column-indicator-mode t)
+#+end_src
+
+** Tema
+
+#+begin_src emacs-lisp
+(setq modus-themes-mode-line '(borderless accented 4 1.0))
+(setq modus-themes-region '(bg-only))
+(setq modus-themes-bold-constructs t
+      modus-themes-italic-constructs t
+      modus-themes-paren-match '(intense))
+(setq modus-themes-headings
+      '((1 . (rainbow background 1.5))
+	(2 . (rainbow background 1.4))
+	(3 . (rainbow background 1.3))
+	(4 . (rainbow background 1.2))
+	(t . (rainbow background 1.1))))
+(setq modus-themes-org-blocks 'tinted-background)
+(load-theme 'modus-vivendi t)
+#+end_src
+
+* Hooks
+
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (display-line-numbers-mode t)))
+#+end_src
+
+* Teclas de atalho
+
+É claro que eu não iria deixar de adicionar *MAIS* teclas de
+atalho para um programa que, dentre outras coisas, é conhecido
+por ter uma cacetada de teclas de atalho.
+
+** Find-file-at-point
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-.") 'ffap)
+#+end_src
+
+** Duplicate-line
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-;") 'duplicate-line)
+#+end_src
+
+** Eshell
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> s") 'eshell)
+#+end_src
+
+** Whitespace-mode
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> w") 'global-whitespace-mode)
+#+end_src
+
+** Número de linhas
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> l") 'global-display-line-numbers-mode)
+#+end_src
+
+** Indicador de 80 linhas
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> f") 'global-display-fill-column-indicator-mode)
+#+end_src
+
+** IBuffer
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+end_src
+
+** Compile
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> c") 'compile)
+#+end_src
+
+** Modus-themes-toggle
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
+#+end_src
+
+** Reiniciar o Emacs
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> r") 'restart-emacs)
+#+end_src
