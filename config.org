@@ -117,8 +117,10 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; TODO: Remover essa linha quando o Emacs 30 virar mainstream.
 (use-package which-key
   :config (which-key-mode))
+
 (use-package company
   :config
   (global-company-mode)
@@ -126,26 +128,14 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (use-package htmlize)
 (use-package magit)
 (use-package simple-httpd)
-;;(use-package god-mode
-;;  :config
-;;  (setq god-exempt-major-modes nil)
-;;  (setq god-exempt-predicates nil)
-;;  (setq god-mode-enable-function-key-translation nil)
-;;  (require 'god-mode)
-;;  (god-mode-all)
-;;  (defun my-god-mode-update-cursor-type ()
-;;    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
-;;  
-;;  (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
-;;  (define-key god-local-mode-map (kbd "i") #'god-local-mode)
-;;  (global-set-key (kbd "<escape>") #'(lambda () (interactive) (god-local-mode 1))))
 (use-package neotree
   :config
   (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
   (global-set-key (kbd "M-n") 'neotree-toggle))
-(use-package all-the-icons)
 (use-package telephone-line
   :config (telephone-line-mode))
+;; Um pouco de música não faz mal.
+(use-package bongo)
 (use-package dashboard
   :config
   (setq dashboard-center-content t)
@@ -211,6 +201,17 @@ por ter uma cacetada de teclas de atalho.
 ** Modus-themes-toggle
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
+#+end_src
+
+** Bongo controls
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-<tab> bb") 'bongo)
+(global-set-key (kbd "C-<tab> bn") 'bongo-next)
+(global-set-key (kbd "C-<tab> bp") 'bongo-previous)
+(global-set-key (kbd "C-<tab> br") 'bongo-play-random)
+(global-set-key (kbd "C-<tab> bP") 'bongo-pause/resume)
+(global-set-key (kbd "C-<tab> bs") 'bongo-stop)
+(global-set-key (kbd "C-<tab> bi") 'bongo-show)
 #+end_src
 
 ** Reiniciar o Emacs
