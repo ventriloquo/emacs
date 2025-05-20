@@ -27,6 +27,17 @@ então vamos dar um jeito nisso.
 (ido-everywhere t)
 (tooltip-mode -1)
 (delete-selection-mode 1)
+
+;; Não mostrar caixas de diálogos usando UI.
+(setq use-dialog-box nil)
+
+;; Refrescar todos os buffers quando os arquivos presentes
+;; neles forem alterados externamente
+(global-auto-revert-mode 1)
+(setq global-auto-revert-non-file-buffers t)
+
+(setq warning-minimum-level
+      :emergency)
 #+end_src
 
 * Org-mode
@@ -52,7 +63,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(add-to-list 'default-frame-alist '(font . "monospace-11"))
+(add-to-list 'default-frame-alist '(font . "jetbrainsmono-11"))
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
 (icomplete-mode 1)
@@ -60,8 +71,8 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;;(display-battery-mode 1)
 (setq-default whitespace-style
     '(face trailing space-mark tab-mark))
-(set-frame-parameter nil 'alpha-background 95)
-(add-to-list 'default-frame-alist '(alpha-background . 95))
+(set-frame-parameter nil 'alpha-background 100)
+(add-to-list 'default-frame-alist '(alpha-background . 100))
 ;;(global-whitespace-mode)
 ;;(global-display-fill-column-indicator-mode t)
 #+end_src
@@ -81,7 +92,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 	(4 . (rainbow background 1.2))
 	(t . (rainbow background 1.1))))
 (setq modus-themes-org-blocks 'tinted-background)
-(load-theme 'modus-vivendi t)
+;;(load-theme 'modus-vivendi t)
 #+end_src
 
 * Hooks
@@ -91,7 +102,66 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 	  (lambda ()
 	    (display-line-numbers-mode t)))
 #+end_src
+* Pacotes
+#+begin_src emacs-lisp
+(load-file "~/.config/emacs/etc/hare-mode.el")
+#+end_src
 
+#+begin_src emacs-lisp
+;; Configurando o MELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Configurando o use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+(use-package which-key
+  :config (which-key-mode))
+(use-package company
+  :config
+  (global-company-mode)
+  (setq company-idle-delay 0))
+(use-package htmlize)
+(use-package magit)
+(use-package simple-httpd)
+;;(use-package god-mode
+;;  :config
+;;  (setq god-exempt-major-modes nil)
+;;  (setq god-exempt-predicates nil)
+;;  (setq god-mode-enable-function-key-translation nil)
+;;  (require 'god-mode)
+;;  (god-mode-all)
+;;  (defun my-god-mode-update-cursor-type ()
+;;    (setq cursor-type (if (or god-local-mode buffer-read-only) 'box 'bar)))
+;;  
+;;  (add-hook 'post-command-hook #'my-god-mode-update-cursor-type)
+;;  (define-key god-local-mode-map (kbd "i") #'god-local-mode)
+;;  (global-set-key (kbd "<escape>") #'(lambda () (interactive) (god-local-mode 1))))
+(use-package neotree
+  :config
+  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
+  (global-set-key (kbd "M-n") 'neotree-toggle))
+(use-package all-the-icons)
+(use-package telephone-line
+  :config (telephone-line-mode))
+(use-package dashboard
+  :config
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (dashboard-open))
+#+end_src
+** Temas
+#+begin_src emacs-lisp
+(use-package kanagawa-themes)
+(use-package gruvbox-theme)
+(use-package gruber-darker-theme)
+(use-package catppuccin-theme)
+(use-package dracula-theme)
+
+(load-theme 'kanagawa-wave t)
+#+end_src
 * Teclas de atalho
 
 É claro que eu não iria deixar de adicionar *MAIS* teclas de
