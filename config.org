@@ -146,7 +146,7 @@ conhecido, como o MELPA, então eu baixei diretamente do
 [[https://git.sr.ht/~laumann/hare-mode][repositório original]] e carrego ela junto do meu setup.
 
 #+begin_src emacs-lisp
-(load-file "~/.emacs.d/etc/hare-mode.el")
+(load-file "~/.config/emacs/etc/hare-mode.el")
 #+end_src
 
 
