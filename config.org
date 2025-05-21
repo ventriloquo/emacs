@@ -3,13 +3,33 @@
 #+STARTUP: overview
 #+OPTIONS: toc:nil num:nil html-postamble:nil html-preamble:nil
 #+HTML_HEAD_EXTRA:<style>
-#+HTML_HEAD_EXTRA: html { background: #0d1117; color: #f0f6fc }
-#+HTML_HEAD_EXTRA: #content { font-family: system-ui; max-width: 80ch; border: solid 1px #3d444db3; padding: 32px; border-radius: 6px }
-#+HTML_HEAD_EXTRA: pre.src::before { background: #0d1117; border-radius: 3px }
-#+HTML_HEAD_EXTRA: pre.src { background: #151b23; border: none; margin: 0 }
-#+HTML_HEAD_EXTRA: h1,h2,h3,h4,h6 { padding: 0 0 9.6px; border-bottom: solid 1px #3d444db3 }
+#+HTML_HEAD_EXTRA: html {
+#+HTML_HEAD_EXTRA:  background: #0d1117;
+#+HTML_HEAD_EXTRA:  color: #f0f6fc;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: #content {
+#+HTML_HEAD_EXTRA:   font-family: system-ui;
+#+HTML_HEAD_EXTRA:   max-width: 80ch;
+#+HTML_HEAD_EXTRA:   border: solid 1px #3d444db3;
+#+HTML_HEAD_EXTRA:   padding: 32px;
+#+HTML_HEAD_EXTRA:   border-radius: 6px;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: pre.src::before { background: #0d1117 }
+#+HTML_HEAD_EXTRA: pre.src {
+#+HTML_HEAD_EXTRA:   background: #151b23;
+#+HTML_HEAD_EXTRA:   border: none;
+#+HTML_HEAD_EXTRA:   border-radius: 0;
+#+HTML_HEAD_EXTRA:   margin: 0;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: h1,h2,h3,h4,h6 {
+#+HTML_HEAD_EXTRA:   padding: 0 0 9.6px;
+#+HTML_HEAD_EXTRA:   border-bottom: solid 1px #3d444db3;
+#+HTML_HEAD_EXTRA: }
 #+HTML_HEAD_EXTRA: .title { text-align: left }
-#+HTML_HEAD_EXTRA: a { color: #4493F8 }
+#+HTML_HEAD_EXTRA: a {
+#+HTML_HEAD_EXTRA:   color: #4493F8;
+#+HTML_HEAD_EXTRA:   text-underline-offset: .2rem;
+#+HTML_HEAD_EXTRA: }
 #+HTML_HEAD_EXTRA:</style>
 
 O objetivo dessa configuração é ser um equivalente à minha
