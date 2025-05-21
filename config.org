@@ -1,21 +1,25 @@
 #+TITLE: Minha configuração do Emacs
 #+AUTHOR: Tukain
 #+STARTUP: overview
-#+OPTIONS: toc:nil num:nil
+#+OPTIONS: toc:nil num:nil html-postamble:nil html-preamble:nil
 #+HTML_HEAD_EXTRA:<style>
-#+HTML_HEAD_EXTRA: html { background: #1e1e1e; color: #efefef }
-#+HTML_HEAD_EXTRA: #content { font-family: system-ui; max-width: 80ch }
-#+HTML_HEAD_EXTRA: .src { background: #2e2e2e; color: #fefefe }
+#+HTML_HEAD_EXTRA: html { background: #0d1117; color: #f0f6fc }
+#+HTML_HEAD_EXTRA: #content { font-family: system-ui; max-width: 80ch; border: solid 1px #3d444db3; padding: 32px; border-radius: 6px }
+#+HTML_HEAD_EXTRA: pre.src::before { background: #0d1117; border-radius: 3px }
+#+HTML_HEAD_EXTRA: pre.src { background: #151b23; border: none; margin: 0 }
+#+HTML_HEAD_EXTRA: h1,h2,h3,h4,h6 { padding: 0 0 9.6px; border-bottom: solid 1px #3d444db3 }
+#+HTML_HEAD_EXTRA: .title { text-align: left }
+#+HTML_HEAD_EXTRA: a { color: #4493F8 }
 #+HTML_HEAD_EXTRA:</style>
 
 O objetivo dessa configuração é ser um equivalente à minha
-configuração do [[https://github.com/ventriloquo/nvim][Neovim]], com a diferença de que aqui eu tento
-documentar ao máximo tudo o que está acontecendo.
+configuração do [[https://github.com/ventriloquo/nvim][Neovim]], com a diferença sendo que aqui eu tento
+"documentar" ao máximo tudo o que está acontecendo.
 
 Para que pelo menos eu consiga entender o que *CACETARALHOS* está
 acontecendo aqui.
 
-/OBS: Essa configuração também tem em mente a exportação para HTML./
+/OBS: Essa configuração é também pronta para exportação HTML./
 
 * Bons padrões
 
@@ -139,14 +143,14 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
   (dashboard-open))
 #+end_src
 
-Syntax-highlighting para a linguagem Hare (https://harelang.org).
+Syntax-highlighting para a linguagem [[https://harelang.org][Hare]].
 
 Esse pacote não está disponível ainda em nenhum package registry
 conhecido, como o MELPA, então eu baixei diretamente do
 [[https://git.sr.ht/~laumann/hare-mode][repositório original]] e carrego ela junto do meu setup.
 
 #+begin_src emacs-lisp
-(load-file "~/.config/emacs/etc/hare-mode.el")
+(load-file "~/.emacs.d/etc/hare-mode.el")
 #+end_src
 
 
