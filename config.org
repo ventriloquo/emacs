@@ -1,11 +1,21 @@
 #+TITLE: Minha configuração do Emacs
 #+AUTHOR: Tukain
 #+STARTUP: overview
+#+OPTIONS: toc:nil num:nil
+#+HTML_HEAD_EXTRA:<style>
+#+HTML_HEAD_EXTRA: html { background: #1e1e1e; color: #efefef }
+#+HTML_HEAD_EXTRA: #content { font-family: system-ui; max-width: 80ch }
+#+HTML_HEAD_EXTRA: .src { background: #2e2e2e; color: #fefefe }
+#+HTML_HEAD_EXTRA:</style>
 
-Esta é a minha configuração do Emacs.
+O objetivo dessa configuração é ser um equivalente à minha
+configuração do [[https://github.com/ventriloquo/nvim][Neovim]], com a diferença de que aqui eu tento
+documentar ao máximo tudo o que está acontecendo.
 
-O objetivo dela é ser um equivalente à [[https://github.com/ventriloquo/nvim][minha configuração do Neovim]],
-por isso, alguns pacotes são utilizados.
+Para que pelo menos eu consiga entender o que *CACETARALHOS* está
+acontecendo aqui.
+
+/OBS: Essa configuração também tem em mente a exportação para HTML./
 
 * Bons padrões
 
@@ -42,6 +52,8 @@ então vamos dar um jeito nisso.
 
 * Org-mode
 
+Coisinhas que melhoram a experiência de usar o Org-mode.
+
 #+begin_src emacs-lisp
 (require 'org-tempo)
 (setq org-support-shift-select t
@@ -54,18 +66,6 @@ então vamos dar um jeito nisso.
               org-image-actual-width '(300))
 #+end_src
 
-* Package manager
-#+begin_src emacs-lisp
-;; Configurando o MELPA
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; Configurando o use-package
-(require 'use-package)
-(setq use-package-always-ensure t)
-#+end_src
-
 * Aparência
 
 Configurações relacionadas a parte mais estética do Emacs,
@@ -75,23 +75,86 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(add-to-list 'default-frame-alist '(font . "jetbrainsmono-11"))
+(add-to-list 'default-frame-alist '(font . "iosevka-11"))
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
 (icomplete-mode 1)
-;;(display-time-mode 1)
-;;(display-battery-mode 1)
 (setq-default whitespace-style
     '(face trailing space-mark tab-mark))
 (set-frame-parameter nil 'alpha-background 100)
 (add-to-list 'default-frame-alist '(alpha-background . 100))
+;;(display-time-mode 1)
+;;(display-battery-mode 1)
 ;;(global-whitespace-mode)
 ;;(global-display-fill-column-indicator-mode t)
 #+end_src
 
-** Tema
+* Pacotes
+#+begin_src emacs-lisp
+;; Configurando o MELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Configurando o use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;; TODO: Remover essa linha quando o Emacs 30 virar mainstream.
+(use-package which-key
+  :config (which-key-mode))
+
+;; Code completion
+(use-package company
+  :config
+  (global-company-mode)
+  (setq company-idle-delay 0))
+
+;; Basicamente, pega código-fonte e exporta em HTML.
+(use-package htmlize)
+
+;; Um dos melhores clientes Git existentes (junto do Lazygit!)
+(use-package magit)
+
+;; Um servidor http simples :P
+(use-package simple-httpd)
+
+;; Painel lateral para navegação de arquivos.
+(use-package neotree
+  :config
+  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
+  (global-set-key (kbd "M-n") 'neotree-toggle))
+
+;; Mode bar
+(use-package telephone-line
+  :config (telephone-line-mode))
+
+;; Um pouco de música não faz mal.
+(use-package bongo)
+
+(use-package dashboard
+  :config
+  (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
+  (dashboard-open))
+#+end_src
+
+Syntax-highlighting para a linguagem Hare (https://harelang.org).
+
+Esse pacote não está disponível ainda em nenhum package registry
+conhecido, como o MELPA, então eu baixei diretamente do
+[[https://git.sr.ht/~laumann/hare-mode][repositório original]] e carrego ela junto do meu setup.
 
 #+begin_src emacs-lisp
+(load-file "~/.emacs.d/etc/hare-mode.el")
+#+end_src
+
+
+
+** Temas
+#+begin_src emacs-lisp
+;; Ajustando alguns detalhes do tema "Modus", um dos temas pré
+;; instalados no Emacs (um muito bonito inclusive).
 (setq modus-themes-mode-line '(borderless accented 4 1.0))
 (setq modus-themes-region '(bg-only))
 (setq modus-themes-bold-constructs t
@@ -105,59 +168,35 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 	(t . (rainbow background 1.1))))
 (setq modus-themes-org-blocks 'tinted-background)
 ;;(load-theme 'modus-vivendi t)
-#+end_src
 
-* Pacotes
-#+begin_src emacs-lisp
-(load-file "~/.config/emacs/etc/hare-mode.el")
-#+end_src
-
-#+begin_src emacs-lisp
-;; TODO: Remover essa linha quando o Emacs 30 virar mainstream.
-(use-package which-key
-  :config (which-key-mode))
-
-(use-package company
-  :config
-  (global-company-mode)
-  (setq company-idle-delay 0))
-(use-package htmlize)
-(use-package magit)
-(use-package simple-httpd)
-(use-package neotree
-  :config
-  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
-  (global-set-key (kbd "M-n") 'neotree-toggle))
-(use-package telephone-line
-  :config (telephone-line-mode))
-;; Um pouco de música não faz mal.
-(use-package bongo)
-(use-package dashboard
-  :config
-  (setq dashboard-center-content t)
-  (setq dashboard-vertically-center-content t)
-  (dashboard-open))
-#+end_src
-** Temas
-#+begin_src emacs-lisp
+;; Temas externos
 (use-package kanagawa-themes)
-(use-package gruvbox-theme)
 (use-package gruber-darker-theme)
 (use-package catppuccin-theme)
-(use-package dracula-theme)
+(use-package doom-themes)
 
-(load-theme 'kanagawa-wave t)
+(load-theme 'doom-horizon t)
 #+end_src
+
 * Hooks
+** prog-mode-hook
+Esse hook serve basicamente para ativar a barra lateral
+com os números das linhas, mas somente quando um arquivo
+de código-fonte estiver sendo editado.
+
+Assim, se você abrir um arquivo =.org= você não vai ter
+uma linha de números ativada.
+
 #+begin_src emacs-lisp
 (add-hook 'prog-mode-hook
 	  (lambda ()
 	    (display-line-numbers-mode t)))
 #+end_src
+
 * Teclas de atalho
 
 É claro que eu não iria deixar de adicionar *MAIS* teclas de
-atalho para um programa que, dentre outras coisas, é conhecido
+atalho para um programa que, entre outras coisas, é conhecido
 por ter uma cacetada de teclas de atalho.
 
 ** Find-file-at-point
@@ -185,12 +224,23 @@ por ter uma cacetada de teclas de atalho.
 (global-set-key (kbd "C-<tab> l") 'global-display-line-numbers-mode)
 #+end_src
 
-** Indicador de 80 linhas
+** Indicador de 80 caracteres
+
+Tente ao máximo se limitar a usar 80 caracteres de largura em
+*TUDO*.
+
+/Ironicamente, essa linha de código ultrapassa esse limite :P/
+
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-<tab> f") 'global-display-fill-column-indicator-mode)
 #+end_src
 
 ** IBuffer
+
+Lista "interativa" de buffers.
+
+/É, eu também acho esse nome paia./
+
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 #+end_src
@@ -201,6 +251,10 @@ por ter uma cacetada de teclas de atalho.
 #+end_src
 
 ** Modus-themes-toggle
+
+Uma coisa muito legal que o tema Modus oferece é uma forma de
+alterar entre a versão do tema claro e o tema escuro facilmente.
+
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
 #+end_src
