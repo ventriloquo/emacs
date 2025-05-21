@@ -54,6 +54,18 @@ então vamos dar um jeito nisso.
               org-image-actual-width '(300))
 #+end_src
 
+* Package manager
+#+begin_src emacs-lisp
+;; Configurando o MELPA
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
+;; Configurando o use-package
+(require 'use-package)
+(setq use-package-always-ensure t)
+#+end_src
+
 * Aparência
 
 Configurações relacionadas a parte mais estética do Emacs,
@@ -93,18 +105,6 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 	(t . (rainbow background 1.1))))
 (setq modus-themes-org-blocks 'tinted-background)
 ;;(load-theme 'modus-vivendi t)
-#+end_src
-
-* Package manager
-#+begin_src emacs-lisp
-;; Configurando o MELPA
-(require 'package)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(package-initialize)
-
-;; Configurando o use-package
-(require 'use-package)
-(setq use-package-always-ensure t)
 #+end_src
 
 * Pacotes
