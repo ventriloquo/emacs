@@ -2,10 +2,10 @@
 #+AUTHOR: Tukain
 #+STARTUP: overview
 
-Essa configuração tem como foco principal não ter nenhuma
-(se não pouquíssima) dependência externa. Ou seja, uma
-configuração usando o Emacs mais puro possível.
+Esta é a minha configuração do Emacs.
 
+O objetivo dela é ser um equivalente à [[https://github.com/ventriloquo/nvim][minha configuração do Neovim]],
+por isso, alguns pacotes são utilizados.
 
 * Bons padrões
 
@@ -95,18 +95,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;;(load-theme 'modus-vivendi t)
 #+end_src
 
-* Hooks
-
-#+begin_src emacs-lisp
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (display-line-numbers-mode t)))
-#+end_src
-* Pacotes
-#+begin_src emacs-lisp
-(load-file "~/.config/emacs/etc/hare-mode.el")
-#+end_src
-
+* Package manager
 #+begin_src emacs-lisp
 ;; Configurando o MELPA
 (require 'package)
@@ -116,7 +105,14 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;; Configurando o use-package
 (require 'use-package)
 (setq use-package-always-ensure t)
+#+end_src
 
+* Pacotes
+#+begin_src emacs-lisp
+(load-file "~/.config/emacs/etc/hare-mode.el")
+#+end_src
+
+#+begin_src emacs-lisp
 ;; TODO: Remover essa linha quando o Emacs 30 virar mainstream.
 (use-package which-key
   :config (which-key-mode))
@@ -151,6 +147,12 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (use-package dracula-theme)
 
 (load-theme 'kanagawa-wave t)
+#+end_src
+* Hooks
+#+begin_src emacs-lisp
+(add-hook 'prog-mode-hook
+	  (lambda ()
+	    (display-line-numbers-mode t)))
 #+end_src
 * Teclas de atalho
 
