@@ -388,7 +388,16 @@ na minha configuração do Neovim).
 
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>n") 'neotree-toggle)
+#+en
+
+** Hl-todo
+
+Destaca e lista todas as ocorrências das palavras TODO, FIXME e relacionadas.
+
+#+begin_src 
+(evil-define-key 'normal 'global (kbd "<leader>t") 'hl-todo-occur)
 #+end_src
+d_src
 
 ** Reiniciar o Emacs
 
