@@ -5,10 +5,8 @@
 O objetivo dessa configuração é ser um equivalente à minha
 configuração do [[https://github.com/ventriloquo/nvim][Neovim]], desde teclas de atalho a pacotes similares,
 com a diferença sendo que aqui eu tento "documentar" /ao máximo/ +tudo+
-o que está acontecendo.
-
-Para que pelo menos eu consiga entender o que *CACETARALHOS* está
-acontecendo aqui.
+o que está acontecendo (para que pelo menos eu consiga entender o que
+*CACETARALHOS* está acontecendo aqui).
 
 /OBS: Essa configuração é também pronta para exportação HTML./
 
@@ -75,7 +73,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(add-to-list 'default-frame-alist '(font . "jetbrainsmono-11"))
+(add-to-list 'default-frame-alist '(font . "jetbrainsmono-10"))
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
 (icomplete-mode 1)
@@ -90,6 +88,14 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 #+end_src
 
 * Pacotes
+
+Toda a magia dessa configuração vem desses pacotes.
+
+** MELPA e Use-package
+
+Aqui fica todo o processo de configuração do repositório [[https://melpa.org][MELPA]]
+e do /macro/ =use-package=.
+
 #+begin_src emacs-lisp
 ;; Configurando o MELPA
 (require 'package)
@@ -99,7 +105,13 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;; Configurando o use-package
 (require 'use-package)
 (setq use-package-always-ensure t)
+#+end_src
 
+** Instalação de pacotes
+
+Aqui fica todo o processo de instalação dos pacotes que são utilizados nessa configuração.
+
+#+begin_src emacs-lisp
 ;; TODO: Remover essa linha quando o Emacs 30 virar mainstream.
 (use-package which-key
   :config (which-key-mode))
@@ -140,13 +152,27 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
   :config
   (evil-collection-init))
 
-;; Ícones
+;; Ícones 
 (use-package all-the-icons)
 (use-package all-the-icons-ibuffer)
 (use-package all-the-icons-dired)
 (use-package all-the-icons-nerd-fonts)
 
+;; TODO: Documentar essa seção.
 (use-package visual-fill-column)
+
+;; Destacar palavras como TODO ou FIXME
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+        hl-todo-keyword-faces
+        `(("TODO"       warning bold)
+          ("FIXME"      error bold)
+          ("HACK"       font-lock-constant-face bold)
+          ("REVIEW"     font-lock-keyword-face bold)
+          ("NOTE"       success bold)
+          ("DEPRECATED" font-lock-doc-face bold))))
 
 ;; A tela inicial do Emacs
 (use-package dashboard
@@ -156,10 +182,11 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
   (dashboard-open))
 #+end_src
 
+** Hare-mode
 Syntax-highlighting para a linguagem [[https://harelang.org][Hare]].
 
 Esse pacote não está disponível ainda em nenhum package registry
-conhecido, como o MELPA, então eu baixei diretamente do
+conhecido, como o [[https://melpa.org/][MELPA]], então eu baixei diretamente do
 [[https://git.sr.ht/~laumann/hare-mode][repositório original]] e carrego ela junto do meu setup.
 
 #+begin_src emacs-lisp
@@ -167,21 +194,26 @@ conhecido, como o MELPA, então eu baixei diretamente do
 #+end_src
 
 ** Temas
+
+Convenhamos, o tema padrão do Emacs é capaz de assustar até um cadáver de tão feio.
+
+Por isso, aqui vão alguns temas para deixar esse carinha uma belezura!
+
 #+begin_src emacs-lisp
 ;; Ajustando alguns detalhes do tema "Modus", um dos temas pré
 ;; instalados no Emacs (um muito bonito inclusive).
-(setq modus-themes-mode-line '(borderless accented 4 1.0))
-(setq modus-themes-region '(bg-only))
-(setq modus-themes-bold-constructs t
-      modus-themes-italic-constructs t
-      modus-themes-paren-match '(intense))
-(setq modus-themes-headings
-      '((1 . (rainbow background 1.5))
-	(2 . (rainbow background 1.4))
-	(3 . (rainbow background 1.3))
-	(4 . (rainbow background 1.2))
-	(t . (rainbow background 1.1))))
-(setq modus-themes-org-blocks 'tinted-background)
+;;(setq modus-themes-mode-line '(borderless accented 4 1.0))
+;;(setq modus-themes-region '(bg-only))
+;;(setq modus-themes-bold-constructs t
+;;      modus-themes-italic-constructs t
+;;      modus-themes-paren-match '(intense))
+;;(setq modus-themes-headings
+;;      '((1 . (rainbow background 1.5))
+;;	(2 . (rainbow background 1.4))
+;;	(3 . (rainbow background 1.3))
+;;	(4 . (rainbow background 1.2))
+;;	(t . (rainbow background 1.1))))
+;;(setq modus-themes-org-blocks 'tinted-background)
 ;;(load-theme 'modus-vivendi t)
 
 ;; Temas externos
@@ -189,7 +221,7 @@ conhecido, como o MELPA, então eu baixei diretamente do
 (use-package gruber-darker-theme)
 (use-package doom-themes)
 
-(load-theme 'doom-dracula t)
+(load-theme 'kanagawa-wave t)
 #+end_src
 
 * Hooks
@@ -207,12 +239,22 @@ uma linha de números ativada.
 	    (display-line-numbers-mode t)))
 #+end_src
 
-** visual-fill-column
+** TODO visual-fill-column
 #+begin_src emacs-lisp
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (visual-fill-column-mode)
 	    (visual-fill-column-toggle-center-text)))
+#+end_src
+
+** all-the-icons-ibuffer
+
+Coloca ícones no iBuffer \o/
+
+#+begin_src emacs-lisp
+(add-hook 'ibuffer-mode-hook
+	  (lambda ()
+	    (all-the-icons-ibuffer-mode)))
 #+end_src
 * Teclas de atalho
 
@@ -223,7 +265,7 @@ por ter uma cacetada de teclas de atalho.
 ** Window/buffer controls
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
-(evil-define-key 'normal 'global (kbd "<leader>c") 'kill-this-buffer)
+(evil-define-key 'normal 'global (kbd "<leader>c") 'kill-current-buffer)
 (evil-define-key 'normal 'global (kbd "<leader><tab>")     'next-buffer)
 (evil-define-key 'normal 'global (kbd "<leader><backtab>") 'previous-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>v") 'split-window-horizontally)
@@ -245,11 +287,19 @@ comando vai tentar abrir esse arquivo.
 #+end_src
 
 ** Eshell
+
+O shell/terminal embutido do Emacs, feito utilizando Elisp e que
+também vem com algumas das ferramentas do projeto [[https://www.gnu.org/][GNU]] re-escritas
+com Elisp.
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>e") 'eshell)
 #+end_src
 
 ** Whitespace-mode
+
+Mostra (utilizando alguns caracteres) os espaços em branco.
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>W") 'global-whitespace-mode)
 #+end_src
@@ -341,6 +391,9 @@ na minha configuração do Neovim).
 #+end_src
 
 ** Reiniciar o Emacs
+
+/Eu preciso mesmo te dizer o que isso faz? ._./
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>r") 'restart-emacs)
 #+end_src
@@ -369,6 +422,14 @@ Inserir um link.
 *** export-dispatch
 
 Menu de exportação de documentos =.org=.
+
+#+begin_quote
+Experimente!
+
+É só apertar =Espaço= + =Espaço= + =e= + =h= + =h= (usando as /keybinds/ do Evil-mode) ou
+=Ctrl= + =c= + =Ctrl= + =e= (usando as /keybinds/ do Emacs) e você terá como resultado um arquivo
+HTML desta configuração!
+#+end_quote
 
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>SPC e") 'org-export-dispatch)
