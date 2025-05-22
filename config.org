@@ -149,9 +149,19 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
   (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
   (global-set-key (kbd "M-n") 'neotree-toggle))
 
-;; Mode bar
-(use-package telephone-line
-  :config (telephone-line-mode))
+;; Mode-line
+(use-package doom-modeline
+  :config (doom-modeline-mode))
+
+;; EVIL MODE!
+(use-package evil
+  :config (evil-mode))
+
+;; Ícones
+(use-package all-the-icons)
+(use-package all-the-icons-ibuffer)
+(use-package all-the-icons-dired)
+(use-package all-the-icons-nerd)
 
 ;; Um pouco de música não faz mal.
 (use-package bongo)
