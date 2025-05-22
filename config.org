@@ -1,39 +1,9 @@
 #+TITLE: Minha configuração do Emacs
 #+AUTHOR: Tukain
-#+STARTUP: overview
-#+OPTIONS: toc:nil num:nil html-postamble:nil html-preamble:nil
-#+HTML_HEAD_EXTRA:<style>
-#+HTML_HEAD_EXTRA: html {
-#+HTML_HEAD_EXTRA:  background: #0d1117;
-#+HTML_HEAD_EXTRA:  color: #f0f6fc;
-#+HTML_HEAD_EXTRA: }
-#+HTML_HEAD_EXTRA: #content {
-#+HTML_HEAD_EXTRA:   font-family: system-ui;
-#+HTML_HEAD_EXTRA:   max-width: 80ch;
-#+HTML_HEAD_EXTRA:   border: solid 1px #3d444db3;
-#+HTML_HEAD_EXTRA:   padding: 32px;
-#+HTML_HEAD_EXTRA:   border-radius: 6px;
-#+HTML_HEAD_EXTRA: }
-#+HTML_HEAD_EXTRA: pre.src::before { background: #0d1117 }
-#+HTML_HEAD_EXTRA: pre.src {
-#+HTML_HEAD_EXTRA:   background: #151b23;
-#+HTML_HEAD_EXTRA:   border: none;
-#+HTML_HEAD_EXTRA:   border-radius: 0;
-#+HTML_HEAD_EXTRA:   margin: 0;
-#+HTML_HEAD_EXTRA: }
-#+HTML_HEAD_EXTRA: h1,h2,h3,h4,h6 {
-#+HTML_HEAD_EXTRA:   padding: 0 0 9.6px;
-#+HTML_HEAD_EXTRA:   border-bottom: solid 1px #3d444db3;
-#+HTML_HEAD_EXTRA: }
-#+HTML_HEAD_EXTRA: .title { text-align: left }
-#+HTML_HEAD_EXTRA: a {
-#+HTML_HEAD_EXTRA:   color: #4493F8;
-#+HTML_HEAD_EXTRA:   text-underline-offset: .2rem;
-#+HTML_HEAD_EXTRA: }
-#+HTML_HEAD_EXTRA:</style>
+#+SETUPFILE: ./export.org
 
 O objetivo dessa configuração é ser um equivalente à minha
-configuração do [[https://github.com/ventriloquo/nvim][Neovim]], desde teclas de atalhos a pacotes similares,
+configuração do [[https://github.com/ventriloquo/nvim][Neovim]], desde teclas de atalho a pacotes similares,
 com a diferença sendo que aqui eu tento "documentar" /ao máximo/ +tudo+
 o que está acontecendo.
 
@@ -71,6 +41,11 @@ então vamos dar um jeito nisso.
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
 
+;; Só mostra alguma mensagem de erro caso ela seja considerada
+;; uma "emergência" (Algo que pode impedir o funcionamento do Emacs).
+;;
+;; Todo o resto que seja considerado abaixo desse nível é mostrado
+;; apenas no buffer "*Warning*"
 (setq warning-minimum-level
       :emergency)
 #+end_src
@@ -147,7 +122,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;; Painel lateral para navegação de arquivos.
 (use-package neotree
   :config
-  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow)))
+  (setq neo-theme (if (display-graphic-p) 'icons 'ascii)))
 
 ;; Mode-line
 (use-package doom-modeline
@@ -156,8 +131,14 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;; EVIL MODE!
 (use-package evil
   :config
+  ;; Deixando a "leader key" ser "Espaço"
   (evil-set-leader 'normal (kbd "SPC"))
   (evil-mode))
+
+;; Teclas de atalho extremamente úteis para o Evil-mode
+(use-package evil-collection
+  :config
+  (evil-collection-init))
 
 ;; Ícones
 (use-package all-the-icons)
@@ -243,8 +224,8 @@ por ter uma cacetada de teclas de atalho.
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>c") 'kill-this-buffer)
-(evil-define-key 'normal 'global (kbd "<tab>")     'next-buffer)
-(evil-define-key 'normal 'global (kbd "<backtab>") 'previous-buffer)
+(evil-define-key 'normal 'global (kbd "<leader><tab>")     'next-buffer)
+(evil-define-key 'normal 'global (kbd "<leader><backtab>") 'previous-buffer)
 (evil-define-key 'normal 'global (kbd "<leader>v") 'split-window-horizontally)
 (evil-define-key 'normal 'global (kbd "<leader>V") 'split-window-vertically)
 (evil-define-key 'normal 'global (kbd "<leader>q") 'delete-window)
@@ -255,13 +236,12 @@ por ter uma cacetada de teclas de atalho.
 #+end_src
 
 ** Find-file-at-point
+
+Basicamente, você deixa o cursor encima de algum /file path/ e esse
+comando vai tentar abrir esse arquivo. 
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>.") 'ffap)
-#+end_src
-
-** Duplicate-line
-#+begin_src emacs-lisp
-(global-set-key (kbd "C-;") 'duplicate-line)
 #+end_src
 
 ** Eshell
@@ -275,16 +255,29 @@ por ter uma cacetada de teclas de atalho.
 #+end_src
 
 ** Número de linhas
+
+Isso aqui serve basicamente para mostrar ou esconder a linha de números.
+
+Por padrão, a minha configuração esconde a linha de números em arquivos que não
+sejam considerados /source-code/. Sendo assim, se você criar um arquivo =.org=, =.md=, =.txt= ou
+algo do gênero, você não verá a linha de números.
+
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>N") 'global-display-line-numbers-mode)
 #+end_src
 
-** Indicador de 80 caracteres
+** Indicador de "limite" caracteres
 
 Tente ao máximo se limitar a usar 80 caracteres de largura em
 *TUDO*.
 
 /Ironicamente, essa linha de código ultrapassa esse limite :P/
+
+#+begin_quote
+Esse comando depende de como a variável "fill-column" está configurada.
+
+Por exemplo, se ela estiver configurada para ser 80, então uma barra vai aparecer na posição 80.
+#+end_quote
 
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>F") 'global-display-fill-column-indicator-mode)
@@ -319,7 +312,15 @@ Uma coisa muito legal que o tema Modus oferece é uma forma de
 alterar entre a versão do tema claro e o tema escuro facilmente.
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
+(evil-define-key 'normal 'global (kbd "<leader>Tm") 'magit)
+#+end_src
+
+** Dired
+
+É claro que eu vou adicionar uma tecla de atalho para abrir o Dired.
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>d") 'dired)
 #+end_src
 
 ** Magit
@@ -342,4 +343,33 @@ na minha configuração do Neovim).
 ** Reiniciar o Emacs
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>r") 'restart-emacs)
+#+end_src
+
+** Org-mode
+
+O org-mode é definitivamente um dos trunfos do Emacs e eu uso isso com uma certa frequência.
+Por conta disso, eu vou deixar algumas teclas de atalho aqui que facilitam a minha vida.
+
+*** open-at-point
+
+Abre o arquivo presente em um link que está abaixo do =point= (cursor).
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>SPC o") 'org-open-at-point)
+#+end_src
+
+*** insert-link
+
+Inserir um link.
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>SPC l") 'org-insert-link)
+#+end_src
+
+*** export-dispatch
+
+Menu de exportação de documentos =.org=.
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>SPC e") 'org-export-dispatch)
 #+end_src

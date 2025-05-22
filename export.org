@@ -1,0 +1,53 @@
+#+STARTUP: overview
+#+OPTIONS: toc:nil num:nil html-postamble:nil html-preamble:nil
+#+HTML_HEAD_EXTRA:<style>
+#+HTML_HEAD_EXTRA: html {
+#+HTML_HEAD_EXTRA:  background: #0d1117;
+#+HTML_HEAD_EXTRA:  color: #f0f6fc;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: #content {
+#+HTML_HEAD_EXTRA:   font-family: system-ui;
+#+HTML_HEAD_EXTRA:   max-width: 80ch;
+#+HTML_HEAD_EXTRA:   border: solid 1px #3d444db3;
+#+HTML_HEAD_EXTRA:   padding: 32px;
+#+HTML_HEAD_EXTRA:   border-radius: 6px;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: pre.src::before { background: #0d1117 }
+#+HTML_HEAD_EXTRA: pre.src {
+#+HTML_HEAD_EXTRA:   background: #151b23;
+#+HTML_HEAD_EXTRA:   border: none;
+#+HTML_HEAD_EXTRA:   border-radius: 0;
+#+HTML_HEAD_EXTRA:   margin: 0;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: h1,h2,h3,h4,h6 {
+#+HTML_HEAD_EXTRA:   padding: 0 0 9.6px;
+#+HTML_HEAD_EXTRA:   border-bottom: solid 1px #3d444db3;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: .title { text-align: left }
+#+HTML_HEAD_EXTRA: a {
+#+HTML_HEAD_EXTRA:   color: #4493F8;
+#+HTML_HEAD_EXTRA:   text-underline-offset: .2rem;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: blockquote {
+#+HTML_HEAD_EXTRA:   border-left: solid .25em #3d444d;
+#+HTML_HEAD_EXTRA:   margin: 0;
+#+HTML_HEAD_EXTRA:   padding: 0 1em;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: blockquote p { color:  #9198a1 }
+#+HTML_HEAD_EXTRA: code {
+#+HTML_HEAD_EXTRA:   padding: .2em .4em;
+#+HTML_HEAD_EXTRA:   margin: 0;
+#+HTML_HEAD_EXTRA:   border-radius: 6px;
+#+HTML_HEAD_EXTRA:   background-color: #1e2329;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA: kbd {
+#+HTML_HEAD_EXTRA:    display: inline-block;
+#+HTML_HEAD_EXTRA:    padding: .25rem;
+#+HTML_HEAD_EXTRA:    line-height: 10px;
+#+HTML_HEAD_EXTRA:    vertical-align: middle;
+#+HTML_HEAD_EXTRA:    background-color: #151b23;
+#+HTML_HEAD_EXTRA:    border: solid 1px #3d444db3;
+#+HTML_HEAD_EXTRA:    border-radius: 6px;
+#+HTML_HEAD_EXTRA:    box-shadow: inset 0 -1px 0 #3d444db3;
+#+HTML_HEAD_EXTRA: }
+#+HTML_HEAD_EXTRA:</style>
