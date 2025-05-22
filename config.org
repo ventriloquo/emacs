@@ -33,8 +33,9 @@
 #+HTML_HEAD_EXTRA:</style>
 
 O objetivo dessa configuração é ser um equivalente à minha
-configuração do [[https://github.com/ventriloquo/nvim][Neovim]], com a diferença sendo que aqui eu tento
-"documentar" ao máximo tudo o que está acontecendo.
+configuração do [[https://github.com/ventriloquo/nvim][Neovim]], desde teclas de atalhos a pacotes similares,
+com a diferença sendo que aqui eu tento "documentar" /ao máximo/ +tudo+
+o que está acontecendo.
 
 Para que pelo menos eu consiga entender o que *CACETARALHOS* está
 acontecendo aqui.
@@ -54,7 +55,7 @@ então vamos dar um jeito nisso.
       custom-file "~/.config/emacs/custom.el")
 (load custom-file)
 (setq-default minor-mode-alist nil
-	      fill-column 80)
+	      fill-column 120)
 
 (require 'ido)
 (ido-mode t)
@@ -99,7 +100,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(add-to-list 'default-frame-alist '(font . "iosevka-11"))
+(add-to-list 'default-frame-alist '(font . "jetbrainsmono-11"))
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
 (icomplete-mode 1)
@@ -146,8 +147,7 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 ;; Painel lateral para navegação de arquivos.
 (use-package neotree
   :config
-  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow))
-  (global-set-key (kbd "M-n") 'neotree-toggle))
+  (setq neo-theme (if (display-graphic-p) 'ascii 'arrow)))
 
 ;; Mode-line
 (use-package doom-modeline
@@ -155,17 +155,19 @@ apesar de ter algumas coisas que ajudam também na usabilidade.
 
 ;; EVIL MODE!
 (use-package evil
-  :config (evil-mode))
+  :config
+  (evil-set-leader 'normal (kbd "SPC"))
+  (evil-mode))
 
 ;; Ícones
 (use-package all-the-icons)
 (use-package all-the-icons-ibuffer)
 (use-package all-the-icons-dired)
-(use-package all-the-icons-nerd)
+(use-package all-the-icons-nerd-fonts)
 
-;; Um pouco de música não faz mal.
-(use-package bongo)
+(use-package visual-fill-column)
 
+;; A tela inicial do Emacs
 (use-package dashboard
   :config
   (setq dashboard-center-content t)
@@ -180,10 +182,8 @@ conhecido, como o MELPA, então eu baixei diretamente do
 [[https://git.sr.ht/~laumann/hare-mode][repositório original]] e carrego ela junto do meu setup.
 
 #+begin_src emacs-lisp
-(load-file "~/.emacs.d/etc/hare-mode.el")
+(load-file "~/.config/emacs/etc/hare-mode.el")
 #+end_src
-
-
 
 ** Temas
 #+begin_src emacs-lisp
@@ -206,10 +206,9 @@ conhecido, como o MELPA, então eu baixei diretamente do
 ;; Temas externos
 (use-package kanagawa-themes)
 (use-package gruber-darker-theme)
-(use-package catppuccin-theme)
 (use-package doom-themes)
 
-(load-theme 'doom-horizon t)
+(load-theme 'doom-dracula t)
 #+end_src
 
 * Hooks
@@ -227,15 +226,37 @@ uma linha de números ativada.
 	    (display-line-numbers-mode t)))
 #+end_src
 
+** visual-fill-column
+#+begin_src emacs-lisp
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (visual-fill-column-mode)
+	    (visual-fill-column-toggle-center-text)))
+#+end_src
 * Teclas de atalho
 
 É claro que eu não iria deixar de adicionar *MAIS* teclas de
 atalho para um programa que, entre outras coisas, é conhecido
 por ter uma cacetada de teclas de atalho.
 
+** Window/buffer controls
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>s") 'save-buffer)
+(evil-define-key 'normal 'global (kbd "<leader>c") 'kill-this-buffer)
+(evil-define-key 'normal 'global (kbd "<tab>")     'next-buffer)
+(evil-define-key 'normal 'global (kbd "<backtab>") 'previous-buffer)
+(evil-define-key 'normal 'global (kbd "<leader>v") 'split-window-horizontally)
+(evil-define-key 'normal 'global (kbd "<leader>V") 'split-window-vertically)
+(evil-define-key 'normal 'global (kbd "<leader>q") 'delete-window)
+(evil-define-key 'normal 'global (kbd "<leader>h") 'windmove-left)
+(evil-define-key 'normal 'global (kbd "<leader>j") 'windmove-down)
+(evil-define-key 'normal 'global (kbd "<leader>k") 'windmove-up)
+(evil-define-key 'normal 'global (kbd "<leader>l") 'windmove-right)
+#+end_src
+
 ** Find-file-at-point
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-.") 'ffap)
+(evil-define-key 'normal 'global (kbd "<leader>.") 'ffap)
 #+end_src
 
 ** Duplicate-line
@@ -245,17 +266,17 @@ por ter uma cacetada de teclas de atalho.
 
 ** Eshell
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> s") 'eshell)
+(evil-define-key 'normal 'global (kbd "<leader>e") 'eshell)
 #+end_src
 
 ** Whitespace-mode
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> w") 'global-whitespace-mode)
+(evil-define-key 'normal 'global (kbd "<leader>W") 'global-whitespace-mode)
 #+end_src
 
 ** Número de linhas
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> l") 'global-display-line-numbers-mode)
+(evil-define-key 'normal 'global (kbd "<leader>N") 'global-display-line-numbers-mode)
 #+end_src
 
 ** Indicador de 80 caracteres
@@ -266,7 +287,7 @@ Tente ao máximo se limitar a usar 80 caracteres de largura em
 /Ironicamente, essa linha de código ultrapassa esse limite :P/
 
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> f") 'global-display-fill-column-indicator-mode)
+(evil-define-key 'normal 'global (kbd "<leader>F") 'global-display-fill-column-indicator-mode)
 #+end_src
 
 ** IBuffer
@@ -277,11 +298,19 @@ Lista "interativa" de buffers.
 
 #+begin_src emacs-lisp
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(evil-define-key 'normal 'global (kbd "<leader>b") 'ibuffer)
 #+end_src
 
 ** Compile
+
+Essa tecla de atalho tem um certo "contexto" do porquê ser =<leader>m= no
+lugar de =<leader>c= ("c" de compile). O contexto é bem simples:
+Na minha configuração do Neovim eu tenho a mesma tecla de atalho, e ela
+executa o =make=, o que eu usava para agilizar o processo de compilar as
+[[https://github.com/ventriloquo/hare_raylib][minhas bindings da raylib]].
+
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> c") 'compile)
+(evil-define-key 'normal 'global (kbd "<leader>m") 'compile)
 #+end_src
 
 ** Modus-themes-toggle
@@ -293,18 +322,24 @@ alterar entre a versão do tema claro e o tema escuro facilmente.
 (global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
 #+end_src
 
-** Bongo controls
+** Magit
+
+Bom, isso aqui abre o Magit. Não tem muito o que explicar aqui.
+
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> bb") 'bongo)
-(global-set-key (kbd "C-<tab> bn") 'bongo-next)
-(global-set-key (kbd "C-<tab> bp") 'bongo-previous)
-(global-set-key (kbd "C-<tab> br") 'bongo-play-random)
-(global-set-key (kbd "C-<tab> bP") 'bongo-pause/resume)
-(global-set-key (kbd "C-<tab> bs") 'bongo-stop)
-(global-set-key (kbd "C-<tab> bi") 'bongo-show)
+(evil-define-key 'normal 'global (kbd "<leader>g") 'magit)
+#+end_src
+
+** Neotree
+
+Painel lateral com uma árvore de arquivos (que nem o "nvim-tree" presente
+na minha configuração do Neovim).
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>n") 'neotree-toggle)
 #+end_src
 
 ** Reiniciar o Emacs
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-<tab> r") 'restart-emacs)
+(evil-define-key 'normal 'global (kbd "<leader>r") 'restart-emacs)
 #+end_src
