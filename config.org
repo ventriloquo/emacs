@@ -177,6 +177,8 @@ Aqui fica todo o processo de instalação dos pacotes que são utilizados nessa 
 ;; A tela inicial do Emacs
 (use-package dashboard
   :config
+  (setq dashboard-banner-logo-title nil)
+  (setq dashboard-startup-banner "~/.config/emacs/logo.png")
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content t)
   (dashboard-open))
@@ -244,6 +246,7 @@ uma linha de números ativada.
 (add-hook 'org-mode-hook
 	  (lambda ()
 	    (visual-fill-column-mode)
+        (visual-line-fill-column-mode)
 	    (visual-fill-column-toggle-center-text)))
 #+end_src
 
@@ -397,8 +400,26 @@ Destaca e lista todas as ocorrências das palavras TODO, FIXME e relacionadas.
 #+begin_src elisp
 (evil-define-key 'normal 'global (kbd "<leader>t") 'hl-todo-occur)
 #+end_src
-d_src
 
+** Bookmark-jump
+
+Seletor de Bookmarks
+
+#+begin_src emacs-lisp
+(evil-define-key 'normal 'global (kbd "<leader>B") 'bookmark-jump)
+#+end_src
+** Download-file
+#+begin_src emacs-lisp
+(defun download-file (url path)
+  "Um wrapper para a função (url-copy-file)"
+  (interactive
+   (list
+    (setq url (read-string "URL: " "https://"))
+    (setq path (read-string "PATH: " "~/"))))
+  (url-copy-file (format "%s" url) (format "%s" path) t))
+
+(evil-define-key 'normal 'global (kbd "<leader>d") 'download-file)
+#+end_src
 ** Reiniciar o Emacs
 
 /Eu preciso mesmo te dizer o que isso faz? ._./
