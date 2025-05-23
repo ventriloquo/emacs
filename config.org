@@ -409,6 +409,11 @@ Seletor de Bookmarks
 (evil-define-key 'normal 'global (kbd "<leader>B") 'bookmark-jump)
 #+end_src
 ** Download-file
+
+Um /wrapper/ para a função =(url-copy-file)=.
+
+Com um simples =Espaço= + =d= você consegue fazer o download de qualquer arquivo na internet!
+
 #+begin_src emacs-lisp
 (defun download-file (url path)
   "Um wrapper para a função (url-copy-file)"
