@@ -132,9 +132,7 @@ Aqui fica todo o processo de instalação dos pacotes que são utilizados nessa 
 (use-package simple-httpd)
 
 ;; Painel lateral para navegação de arquivos.
-(use-package neotree
-  :config
-  (setq neo-theme (if (display-graphic-p) 'icons 'ascii)))
+(use-package neotree)
 
 ;; Mode-line
 (use-package doom-modeline
@@ -423,7 +421,7 @@ Com um simples =Espaço= + =d= você consegue fazer o download de qualquer arqui
     (setq path (read-string "PATH: " "~/"))))
   (url-copy-file (format "%s" url) (format "%s" path) t))
 
-(evil-define-key 'normal 'global (kbd "<leader>d") 'download-file)
+(evil-define-key 'normal 'global (kbd "<leader>D") 'download-file)
 #+end_src
 ** Reiniciar o Emacs
 
