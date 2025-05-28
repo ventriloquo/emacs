@@ -39,13 +39,13 @@
 (defvar hare-mode-keywords
   '("as" "break" "const" "continue" "def" "else" "export" "fn" "for"
     "if" "is" "let" "match" "return" "size" "static" "switch" "use"
-    "_" "defer" "yield" "case" "type")
+    "_" "defer" "yield" "case" "type" "delete")
   "Keywords used in `hare-mode'.")
 
 (defvar hare-mode-types
   '("u8" "u16" "u32" "u64" "i8" "i16" "i32" "i64" "int" "uint"
     "uintptr" "f32" "f64" "bool" "char" "str" "void" "struct" "union"
-    "nullable" "null" "valist" "rune" "enum")
+    "nullable" "null" "valist" "rune" "enum" "never" )
   "Types used in `hare-mode'.")
 
 (defvar hare-mode-constants
