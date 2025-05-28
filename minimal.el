@@ -28,9 +28,11 @@
       custom-file "~/.custom.el"
       use-package-always-ensure t
       warning-minimum-level
-      :emergency)
+      :error)
 
-(setq-default org-edit-src-content-indentation 0
+(setq-default minor-mode-alist nil
+	      fill-column 80
+	      org-edit-src-content-indentation 0
 	      org-support-shift-select t
 	      org-startup-indented t
 	      org-pretty-entities t
@@ -49,19 +51,24 @@
 (use-package gruber-darker-theme
   :config
   (load-theme 'gruber-darker t))
+(use-package visual-fill-column)
 
 ;; Hooks
 (add-hook 'prog-mode-hook
 	  (lambda ()
 	    (display-line-numbers-mode t)))
+(add-hook 'org-mode-hook
+	  (lambda ()
+	    (visual-line-mode t)
+	    (visual-fill-column-mode t)))
 
 ;; Keybindings
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-<tab> e") 'eshell)
 (global-set-key (kbd "C-<tab> c") 'compile)
-(global-set-key (kbd "C-<tab> .") 'ffap)
+(global-set-key (kbd "C-.") 'ffap)
+(global-set-key (kbd "C-;") 'duplicate-line)
 (global-set-key (kbd "C-<tab> r") 'restart-emacs)
-(global-set-key (kbd "C-<tab> m") 'modus-themes-toggle)
 (global-set-key (kbd "C-<tab> <left>") 'windmove-left)
 (global-set-key (kbd "C-<tab> <right>") 'windmove-right)
 (global-set-key (kbd "C-<tab> <up>") 'windmove-up)
