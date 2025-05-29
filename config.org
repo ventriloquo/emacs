@@ -355,6 +355,7 @@ executa o =make=, o que eu usava para agilizar o processo de compilar as
 
 #+begin_src emacs-lisp
 (evil-define-key 'normal 'global (kbd "<leader>m") 'compile)
+(evil-define-key 'normal 'global (kbd "<leader>M") 'recompile)
 #+end_src
 
 ** Modus-themes-toggle
