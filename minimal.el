@@ -1,4 +1,4 @@
-;; Requires
+;; Require
 (require 'ido)
 (require 'org-tempo)
 (require 'package)
@@ -19,13 +19,13 @@
 (global-hl-line-mode t)
 
 ;; Variables
-(setq backup-directory-alist '(("." . "~/.local/share/backups"))
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups"))
       inhibit-startup-message t
       inhibit-startup-echo-area-message t
       tooltip-use-echo-area t
       global-auto-revert-non-file-buffers t
       use-dialog-box nil
-      custom-file "~/.custom.el"
+      custom-file "~/.config/emacs/custom.el"
       use-package-always-ensure t
       warning-minimum-level
       :error)
@@ -52,6 +52,7 @@
   :config
   (load-theme 'gruber-darker t))
 (use-package visual-fill-column)
+(load-file "~/.config/emacs/pkgs/hare-mode.el")
 
 ;; Hooks
 (add-hook 'prog-mode-hook
@@ -73,3 +74,4 @@
 (global-set-key (kbd "C-<tab> <right>") 'windmove-right)
 (global-set-key (kbd "C-<tab> <up>") 'windmove-up)
 (global-set-key (kbd "C-<tab> <down>") 'windmove-down)
+
