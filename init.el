@@ -14,9 +14,11 @@
 (tooltip-mode -1)
 (which-key-mode t)
 (delete-selection-mode t)
+(visual-line-mode t)
 (global-auto-revert-mode t)
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
+(global-completion-preview-mode t)
 
 ;; Variables
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups"))
@@ -42,7 +44,7 @@
 	      org-image-actual-width '(300))
 
 ;; Lists
-(add-to-list 'default-frame-alist '(font . "Iosevka-10"))
+(add-to-list 'default-frame-alist '(font . "Iosevka-12"))
 
 ;; Use-package
 (package-initialize)
@@ -55,18 +57,15 @@
 (load-file "~/.config/emacs/pkgs/hare-mode.el")
 
 ;; Hooks
-(add-hook 'prog-mode-hook
-	  (lambda ()
-	    (display-line-numbers-mode t)))
-(add-hook 'org-mode-hook
-	  (lambda ()
-	    (visual-line-mode t)
-	    (visual-fill-column-mode t)))
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'org-mode-hook #'visual-fill-column-mode)
 
 ;; Keybindings
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-<tab> e") 'eshell)
-(global-set-key (kbd "C-<tab> c") 'compile)
+(global-set-key (kbd "C-<tab> c") 'async-shell-command)
+(global-set-key (kbd "C-<tab> mc") 'compile)
+(global-set-key (kbd "C-<tab> mr") 'recompile)
 (global-set-key (kbd "C-.") 'ffap)
 (global-set-key (kbd "C-;") 'duplicate-line)
 (global-set-key (kbd "C-<tab> r") 'restart-emacs)
