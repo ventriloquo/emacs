@@ -3,6 +3,7 @@
 (require 'org-tempo)
 (require 'package)
 (require 'use-package)
+(require 'ansi-color)
 
 ;; Modes
 (icomplete-mode)
@@ -14,7 +15,7 @@
 (tooltip-mode -1)
 (which-key-mode t)
 (delete-selection-mode t)
-(visual-line-mode t)
+(global-visual-line-mode t)
 (global-auto-revert-mode t)
 (global-prettify-symbols-mode)
 (global-hl-line-mode t)
@@ -29,8 +30,7 @@
       use-dialog-box nil
       custom-file "~/.config/emacs/custom.el"
       use-package-always-ensure t
-      warning-minimum-level
-      :error)
+      warning-minimum-level :error)
 
 (setq-default minor-mode-alist nil
 	      fill-column 80
@@ -46,30 +46,29 @@
 ;; Lists
 (add-to-list 'default-frame-alist '(font . "Iosevka-12"))
 
-;; Use-package
-(package-initialize)
-
 ;; Packages
+(package-initialize)
 (use-package gruber-darker-theme
-  :config
-  (load-theme 'gruber-darker t))
-(use-package visual-fill-column)
+  :config (load-theme 'gruber-darker t))
 (load-file "~/.config/emacs/pkgs/hare-mode.el")
 
 ;; Hooks
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 (add-hook 'org-mode-hook #'visual-fill-column-mode)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 ;; Keybindings
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-<tab> e") 'eshell)
-(global-set-key (kbd "C-<tab> c") 'async-shell-command)
-(global-set-key (kbd "C-<tab> mc") 'compile)
-(global-set-key (kbd "C-<tab> mr") 'recompile)
-(global-set-key (kbd "C-.") 'ffap)
-(global-set-key (kbd "C-;") 'duplicate-line)
-(global-set-key (kbd "C-<tab> r") 'restart-emacs)
-(global-set-key (kbd "C-<tab> <left>") 'windmove-left)
-(global-set-key (kbd "C-<tab> <right>") 'windmove-right)
-(global-set-key (kbd "C-<tab> <up>") 'windmove-up)
-(global-set-key (kbd "C-<tab> <down>") 'windmove-down)
+(keymap-global-set "C-x C-b"		'ibuffer)
+(keymap-global-set "C-."		'ffap)
+(keymap-global-set "C-;"		'duplicate-line)
+(keymap-global-set "C-<tab> a"		'align-regexp)
+(keymap-global-set "C-<tab> e"		'eshell)
+(keymap-global-set "C-<tab> c"		'async-shell-command)
+(keymap-global-set "C-<tab> m c"	'compile)
+(keymap-global-set "C-<tab> m r"	'recompile)
+(keymap-global-set "C-<tab> r"		'restart-emacs)
+(keymap-global-set "C-<tab> <left>"	'windmove-left)
+(keymap-global-set "C-<tab> <right>"	'windmove-right)
+(keymap-global-set "C-<tab> <up>"	'windmove-up)
+(keymap-global-set "C-<tab> <down>"	'windmove-down)
+
