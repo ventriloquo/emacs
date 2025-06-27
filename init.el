@@ -49,9 +49,6 @@
 	      org-startup-with-inline-images t
 	      org-image-actual-width '(300))
 
-;; Hooks
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
-
 ;; Keybindings
 (keymap-global-set "C-x C-b"		'ibuffer)
 (keymap-global-set "C-<tab> e"		'eshell)
@@ -67,8 +64,14 @@
 (keymap-global-set "C-<tab> <down>"	'windmove-down)
 
 ;; Packages
-(load-file "~/.config/emacs/pkgs/hare-mode.el")
+(load-file "~/.config/emacs/pkgs/simphare-mode.el")
+(load-file "~/.config/emacs/pkgs/simpc-mode.el")
 (load-file "~/.config/emacs/pkgs/gruber-darker-theme.el")
 
 ;; Theme
 (load-theme 'gruber-darker t)
+
+;; Hooks
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'c-mode-hook #'simpc-mode)
+
