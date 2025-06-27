@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: function
+# key: fn
+# --
+
+$1 fn $2($3) $4 = {
+   $5
+};

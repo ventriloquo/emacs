@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: entry point
+# key: main
+# --
+
+export fn main() void = {
+       $1
+};

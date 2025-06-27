@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: images
+# key: img
+# --
+\begin{center}
+\includegraphics[width=.7\linewidth]{$1}
+\end{center}

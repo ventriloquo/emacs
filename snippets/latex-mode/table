@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: table
+# key: table
+# --
+\begin{center}
+\begin{tabular}{ c c }
+$1 & $2 \\\ \hline
+\end{tabular}
+\end{center}

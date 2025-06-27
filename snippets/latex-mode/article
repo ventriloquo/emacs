@@ -1,0 +1,47 @@
+# -*- mode: snippet -*-
+# name: article
+# key: article
+# --
+
+% --- Preamble --- %
+
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage[portuguese, portuges]{babel}
+
+\title{$1}
+\author{$2}
+
+% --- End of Preamble --- %
+
+\begin{document}
+
+% --- Document's cover --- %
+
+\begin{titlepage}
+  \centering
+      {\Huge \bfseries $1 \par}
+             \vspace{2cm}
+                    {\Large $2 \par}
+                    \vfill
+                        {\large \today \par}
+\end{titlepage}
+
+% --- End of document's cover --- %
+
+% --- Table of contents --- %
+
+\pagebreak
+
+\setcounter{tocdepth}{5}
+\tableofcontents
+
+\pagebreak
+
+% --- End of table of contents --- %
+
+$3
+
+\end{document}
