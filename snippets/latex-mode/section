@@ -3,4 +3,4 @@
 # key: section
 # --
 \section{$1}
-$2
+$0
