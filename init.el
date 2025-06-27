@@ -49,14 +49,6 @@
 	      org-startup-with-inline-images t
 	      org-image-actual-width '(300))
 
-;; Packages
-(load-file "~/.config/emacs/pkgs/hare-mode.el")
-(load-file "~/.config/emacs/pkgs/gruber-darker.el")
-(load-file "~/.config/emacs/pkgs/hl-todo.el")
-
-;; Theme
-(load-theme 'gruber-darker t)
-
 ;; Hooks
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
@@ -73,3 +65,10 @@
 (keymap-global-set "C-<tab> <right>"	'windmove-right)
 (keymap-global-set "C-<tab> <up>"	'windmove-up)
 (keymap-global-set "C-<tab> <down>"	'windmove-down)
+
+;; Packages
+(load-file "~/.config/emacs/pkgs/hare-mode.el")
+(load-file "~/.config/emacs/pkgs/gruber-darker-theme.el")
+
+;; Theme
+(load-theme 'gruber-darker t)
