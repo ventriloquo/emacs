@@ -20,50 +20,48 @@
       (todo-highlight-words)
     (remove-overlays)))
 
-(defvar WORD_TODO	" ?TODO: ?\\| ?todo: ?")
+(defvar WORD_NOTE	" ?NOTE: ?\\| ?note: ?\\| ?INFO: ?\\| ?info: ?")
+(defvar WORD_TODO	" ?TODO: ?\\| ?todo: ?\\| ?TBD: ?\\| ?tbd: ?")
 (defvar WORD_WARNING	" ?WARN: ?\\| ?WARNING: ?\\| ?warn: ?\\| ?warning: ?")
-(defvar WORD_NOTE	" ?NOTE: ?\\| ?note: ?")
-(defvar WORD_CAUTION	" ?CAUTION: ?\\| ?caution: ?")
+(defvar WORD_CAUTION	" ?CAUTION: ?\\| ?caution: ?\\| ?BUG: ?\\| ?bug: ?")
 (defvar WORD_FIXME	" ?FIXME: ?\\| ?fixme: ?\\| ?FIX: ?\\| ?fix: ?")
 
 (defun todo-highlight-mode-refresh ()
   (interactive)
-  (if todo-highlight-mode
-      (todo-highlight-mode -1))
-  (when (not todo-highlight-mode)
-    (todo-highlight-mode 1)))
+  (if todo-highlight-mode (todo-highlight-mode -1))
+  (when (not todo-highlight-mode) (todo-highlight-mode 1)))
 
 (defun todo-highlight-words ()
-  "Colorizando palavras"
-  (highlight-regexp WORD_TODO 'hi-green)
-  (highlight-regexp WORD_WARNING 'hi-yellow)
-  (highlight-regexp WORD_NOTE 'hi-aquamarine)
-  (highlight-regexp WORD_CAUTION 'hi-salmon)
-  (highlight-regexp WORD_FIXME 'isearch-fail))
-
-(defun todo-highlight-mode-helper (WORD COLOR)
-  (occur (format "%s" WORD))
-  (highlight-regexp WORD COLOR))
+  (highlight-regexp	WORD_TODO	'hi-green)
+  (highlight-regexp	WORD_WARNING	'hi-yellow)
+  (highlight-regexp	WORD_NOTE	'hi-blue)
+  (highlight-regexp	WORD_CAUTION	'hi-salmon)
+  (highlight-regexp	WORD_FIXME	'isearch-fail))
 
 (defun todo-highlight-mode-list-todos ()
   (interactive)
-  (todo-highlight-mode-helper WORD_TODO 'hi-green))
+  (occur WORD_TODO)
+  (highlight-regexp WORD_TODO 'hi-green))
 
 (defun todo-highlight-mode-list-warnings ()
   (interactive)
-  (todo-highlight-mode-helper WORD_WARNING 'hi-yellow))
+  (occur WORD_WARNING)
+  (highlight-regexp WORD_WARNING 'hi-yellow))
 
 (defun todo-highlight-mode-list-notes ()
   (interactive)
-  (todo-highlight-mode-helper WORD_NOTE 'hi-aquamarine))
+  (occur WORD_NOTE)
+  (highlight-regexp WORD_NOTE 'hi-blue))
 
 (defun todo-highlight-mode-list-cautions ()
   (interactive)
-  (todo-highlight-mode-helper WORD_CAUTION 'hi-salmon))
+  (occur WORD_CAUTION)
+  (highlight-regexp WORD_CAUTION 'hi-salmon))
 
 (defun todo-highlight-mode-list-fixmes ()
   (interactive)
-  (todo-highlight-mode-helper WORD_FIXME 'isearch-fail))
+  (occur WORD_FIXME)
+  (highlight-regexp WORD_FIXME 'isearch-fail))
 
 (define-global-minor-mode global-todo-highlight-mode todo-highlight-mode
   (lambda ()
