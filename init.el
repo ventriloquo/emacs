@@ -66,6 +66,7 @@
 ;; Packages
 (load-file "~/.config/emacs/pkgs/simphare-mode.el")
 (load-file "~/.config/emacs/pkgs/simpc-mode.el")
+(load-file "~/.config/emacs/pkgs/todo.el")
 (load-file "~/.config/emacs/pkgs/gruber-darker-theme.el")
 (load-file "~/.config/emacs/pkgs/srcery-theme.el")
 
