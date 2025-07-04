@@ -4,11 +4,18 @@
   (let ((table (make-syntax-table)))
     ;; C/C++ style comments
 	(modify-syntax-entry ?/ ". 124b" table)
-;;	(modify-syntax-entry ?* ". 23" table)
   	(modify-syntax-entry ?\n "> b" table)
     ;; Chars are the same as strings
     (modify-syntax-entry ?' "\"" table)
     table))
+
+(defun simphare-find-branches ()
+  (interactive)
+  (occur "if.*\\|else.*\\|.*||.*\\|switch.*\\|match.*\\|case.*"))
+
+(defun simphare-find-blocks ()
+  (interactive)
+  (occur ".*(.*).*{"))
 
 (defun simphare-types ()
   '("u8" "u16" "u32" "u64" "i8" "i16" "i32" "i64" "int" "uint"
