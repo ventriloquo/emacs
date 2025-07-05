@@ -36,18 +36,17 @@
       use-dialog-box nil
       custom-file "~/.config/emacs/custom.el"
       use-package-always-ensure t
-      warning-minimum-level :error)
-
-(setq-default minor-mode-alist nil
-	      fill-column 80
-	      org-edit-src-content-indentation 0
-	      org-support-shift-select t
-	      org-startup-indented t
-	      org-pretty-entities t
-	      org-use-sub-superscripts "{}"
-	      org-hide-emphasis-markers t
-	      org-startup-with-inline-images t
-	      org-image-actual-width '(300))
+      warning-minimum-level :error
+      minor-mode-alist nil
+      fill-column 80
+      org-edit-src-content-indentation 0
+      org-support-shift-select t
+      org-startup-indented t
+      org-pretty-entities t
+      org-use-sub-superscripts "{}"
+      org-hide-emphasis-markers t
+      org-startup-with-inline-images t
+      org-image-actual-width '(300))
 
 ;; Keybindings
 (keymap-global-set "C-."		'ffap)
@@ -67,10 +66,10 @@
 (load-file "~/.config/emacs/pkgs/simphare-mode.el")
 (load-file "~/.config/emacs/pkgs/simpc-mode.el")
 (load-file "~/.config/emacs/pkgs/todo.el")
-(load-file "~/.config/emacs/pkgs/gruber-darker-theme.el")
-(load-file "~/.config/emacs/pkgs/srcery-theme.el")
 
 ;; Theme
+;;(load-file "~/.config/emacs/pkgs/gruber-darker-theme.el")
+(load-file "~/.config/emacs/pkgs/srcery-theme.el")
 (load-theme 'srcery t)
 
 ;; Hooks
