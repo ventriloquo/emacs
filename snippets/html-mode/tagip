@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Tag inline with properties
+# key: tagip
+# --
+<$1 $2>$0</$1>

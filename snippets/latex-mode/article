@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{wrapfig}
 \usepackage[portuguese, portuges]{babel}
+\usepackage{hyperref}
 
 \title{$1}
 \author{$2}

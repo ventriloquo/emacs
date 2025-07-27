@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Tag block with properties
+# key: tagp
+# --
+<$1 $2>
+    $0
+</$1>
